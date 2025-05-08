@@ -217,3 +217,33 @@ body {
 .btn-login:hover {
     background: #fb8c00;
 }
+
+.redes-sociais {
+    margin-top: 8px;
+}
+
+.icone-social {
+    font-size: 2em;
+    margin: 0 10px;
+    color: #fff;
+    transition: transform 0.2s, color 0.2s;
+    vertical-align: middle;
+}
+
+.icone-social:hover {
+    transform: scale(1.15);
+    color: #333;
+}
+
+.contato-texto {
+    color: #fff;
+    font-size: 1em;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+.redes-sociais a {
+    text-decoration: none;
+    margin: 0 8px;
+    display: inline-flex;
+    align-items: center;
+}
