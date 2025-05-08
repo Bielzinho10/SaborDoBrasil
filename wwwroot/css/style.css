@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #fafafa;
+    background: linear-gradient(120deg, #fffbe6 0%, #ffe0b2 100%);
 }
 .container {
     display: flex;
@@ -101,4 +101,119 @@ body {
     color: #fff;
     font-size: 1.1em;
     cursor: pointer;
+}
+
+    display flex
+    align-items center
+
+
+.cadastro-container {
+    margin-top: 60px;
+}
+
+.cadastro-card {
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    border: none;
+    background: #fff;
+}
+
+.cadastro-btn {
+    background: #2196f3;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    padding: 10px 0;
+}
+
+.cadastro-btn:hover {
+    background: #1769aa;
+}
+
+
+.rodape {
+    width: 100%;
+    background: orange;
+    color: #fff;
+    text-align: center;
+    padding: 18px 0 12px 0;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    position: relative;
+    bottom: 0;
+    left: 0;
+}
+
+.nome-site {
+    display: block;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #ff9800;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+
+.login-bg {
+    background: linear-gradient(120deg, #fffbe6 0%, #ffe0b2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff3e0;
+    padding: 32px 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(255,152,0,0.10);
+    width: 100%;
+    max-width: 320px;
+}
+
+.titulo-login {
+    color: #ff9800;
+    margin-bottom: 22px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.input-login {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    border: 1px solid #ffcc80;
+    border-radius: 6px;
+    font-size: 1em;
+    background: #fff8e1;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 10px 0;
+    background: #ff9800;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-login:hover {
+    background: #fb8c00;
 }
