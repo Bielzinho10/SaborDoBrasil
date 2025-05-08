@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fafafa;
+}
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+.coluna {
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+.coluna1, .coluna3 {
+    width: 20%;
+    background: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+.coluna2 {
+    width: 60%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.logo {
+    width: 120px;
+    margin-bottom: 30px;
+}
+.likes, .dislikes {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+.likes button, .dislikes button {
+    font-size: 1.5em;
+    margin-right: 8px;
+    cursor: pointer;
+}
+.publicacao {
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 20px;
+    margin-bottom: 30px;
+    width: 90%;
+    max-width: 500px;
+}
+.imagem-publicada {
+    width: 100%;
+    border-radius: 8px;
+}
+.acoes {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+.acoes button {
+    font-size: 1.2em;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.comentarios {
+    margin-top: 10px;
+}
+.comentario-input {
+    width: 70%;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+.comentar-btn {
+    padding: 5px 10px;
+    margin-left: 5px;
+    border-radius: 4px;
+    border: none;
+    background: #4caf50;
+    color: #fff;
+    cursor: pointer;
+}
+.lista-comentarios {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+.lista-comentarios li {
+    background: #e0e0e0;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+#login-btn {
+    margin-top: 40px;
+    padding: 12px 30px;
+    border-radius: 6px;
+    border: none;
+    background: #2196f3;
+    color: #fff;
+    font-size: 1.1em;
+    cursor: pointer;
+}

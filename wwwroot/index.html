@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sabor do Brasil</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Coluna 1 -->
+        <div class="coluna coluna1">
+            <img src="logo.png" alt="Logo Sabor do Brasil" class="logo">
+            <div class="likes">
+                <button id="like-btn">👍</button>
+                <span id="like-count">0</span>
+            </div>
+            <div class="dislikes">
+                <button id="dislike-btn">👎</button>
+                <span id="dislike-count">0</span>
+            </div>
+        </div>
+        <!-- Coluna 2 -->
+        <div class="coluna coluna2">
+            <div class="publicacao">
+                <img src="imagem1.jpg" alt="Imagem Publicada" class="imagem-publicada">
+                <div class="acoes">
+                    <button class="like-img-btn">👍</button>
+                    <span class="like-img-count">0</span>
+                    <button class="dislike-img-btn">👎</button>
+                    <span class="dislike-img-count">0</span>
+                </div>
+                <div class="comentarios">
+                    <input type="text" class="comentario-input" placeholder="Comente aqui...">
+                    <button class="comentar-btn">Comentar</button>
+                    <ul class="lista-comentarios"></ul>
+                </div>
+            </div>
+            <!-- Adicione mais publicações conforme necessário -->
+        </div>
+        <!-- Coluna 3 -->
+        <div class="coluna coluna3">
+            <button id="login-btn">Login</button>
+        </div>
+    </div>
+    <script src="js/javascript.js"></script>
+</body>
+</html>
