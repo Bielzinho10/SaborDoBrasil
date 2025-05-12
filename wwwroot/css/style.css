@@ -130,18 +130,31 @@ body {
     background: #1769aa;
 }
 
+.cadastro-link, .login-link {
+    margin-top: 12px;
+    font-size: 0.9em;
+    color: #555;
+    text-align: center;
+}
+
+.cadastro-link a, .login-link a {
+    color: #ff9800;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cadastro-link a:hover, .login-link a:hover {
+    text-decoration: underline;
+}
 
 .rodape {
     width: 100%;
     background: orange;
     color: #fff;
     text-align: center;
-    padding: 18px 0 12px 0;
+    padding: 18px 0;
     font-size: 1.1em;
     letter-spacing: 1px;
-    position: relative;
-    bottom: 0;
-    left: 0;
 }
 
 .nome-site {
@@ -220,6 +233,9 @@ body {
 
 .redes-sociais {
     margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
 .icone-social {
@@ -227,7 +243,6 @@ body {
     margin: 0 10px;
     color: #fff;
     transition: transform 0.2s, color 0.2s;
-    vertical-align: middle;
 }
 
 .icone-social:hover {
@@ -246,4 +261,148 @@ body {
     margin: 0 8px;
     display: inline-flex;
     align-items: center;
+}
+
+.cardapio-container {
+    padding: 20px;
+    background: #fffbe6;
+}
+
+.categoria {
+    margin-bottom: 40px;
+}
+
+.categoria-titulo {
+    font-size: 1.8em;
+    color: #ff9800;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.card.prato {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 15px;
+    gap: 15px;
+}
+
+.prato-imagem {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.prato-detalhes {
+    flex: 1;
+}
+
+.prato-nome {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.prato-descricao {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.prato-preco {
+    font-size: 1.2em;
+    color: #4caf50;
+    font-weight: bold;
+}
+
+.menu-opcoes {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-menu {
+    text-decoration: none;
+    background: #ff9800;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-menu:hover {
+    background: #fb8c00;
+}
+
+.como-comprar {
+    padding: 20px;
+    background: #fffbe6;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    text-align: center;
+}
+
+.como-comprar h2 {
+    color: #ff9800;
+    margin-bottom: 10px;
+}
+
+.como-comprar p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.como-comprar ol {
+    text-align: left;
+    margin: 0 auto;
+    padding: 0 20px;
+    color: #333;
+}
+
+.como-comprar ol li {
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.como-comprar-container {
+    padding: 20px;
+    background: #fffbe6;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.como-comprar h2 {
+    color: #ff9800;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.como-comprar p {
+    font-size: 1.1em;
+    color: #555;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.como-comprar ol {
+    list-style: decimal;
+    margin: 0 auto;
+    padding: 0 20px;
+    color: #333;
+    font-size: 1em;
+}
+
+.como-comprar ol li {
+    margin-bottom: 10px;
 }
