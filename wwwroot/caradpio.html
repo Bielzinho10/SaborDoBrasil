@@ -16,40 +16,70 @@
         <section class="categoria">
             <h2 class="categoria-titulo">Pratos Principais</h2>
             <div class="card prato">
-                <img src="img/feijoada.jpg" alt="Feijoada" class="prato-imagem">
-                <div class="prato-detalhes">
-                    <h3 class="prato-nome">Feijoada</h3>
-                    <p class="prato-descricao">Uma deliciosa feijoada brasileira com acompanhamentos.</p>
-                    <span class="prato-preco">R$ 35,00</span>
-                </div>
+                <input type="checkbox" id="feijoada" name="pratos" value="Feijoada - R$ 35,00">
+                <label for="feijoada">
+                    <img src="img/receitas-de-feijoada-baiana-4-730x449.webp" alt="Feijoada" class="prato-imagem">
+                    <div class="prato-detalhes">
+                        <h3 class="prato-nome">Feijoada</h3>
+                        <p class="prato-descricao">Uma deliciosa feijoada brasileira com acompanhamentos.</p>
+                        <span class="prato-preco">R$ 35,00</span>
+                    </div>
+                </label>
             </div>
             <div class="card prato">
-                <img src="img/moqueca.jpg" alt="Moqueca Baiana" class="prato-imagem">
-                <div class="prato-detalhes">
-                    <h3 class="prato-nome">Moqueca Baiana</h3>
-                    <p class="prato-descricao">Moqueca de peixe com temperos típicos da Bahia.</p>
-                    <span class="prato-preco">R$ 40,00</span>
-                </div>
+                <input type="checkbox" id="moqueca" name="pratos" value="Moqueca Baiana - R$ 40,00">
+                <label for="moqueca">
+                    <img src="img/moqueca-de-peixe-baiana-1200x800.jpg" alt="Moqueca Baiana" class="prato-imagem">
+                    <div class="prato-detalhes">
+                        <h3 class="prato-nome">Moqueca Baiana</h3>
+                        <p class="prato-descricao">Moqueca de peixe com temperos típicos da Bahia.</p>
+                        <span class="prato-preco">R$ 40,00</span>
+                    </div>
+                </label>
             </div>
         </section>
         <section class="categoria">
             <h2 class="categoria-titulo">Sobremesas</h2>
             <div class="card prato">
-                <img src="img/brigadeiro.jpg" alt="Brigadeiro" class="prato-imagem">
-                <div class="prato-detalhes">
-                    <h3 class="prato-nome">Brigadeiro</h3>
-                    <p class="prato-descricao">Tradicional doce brasileiro feito com chocolate.</p>
-                    <span class="prato-preco">R$ 5,00</span>
-                </div>
+                <input type="checkbox" id="brigadeiro" name="pratos" value="Brigadeiro - R$ 5,00">
+                <label for="brigadeiro">
+                    <img src="img/images.jpg" alt="Brigadeiro" class="prato-imagem">
+                    <div class="prato-detalhes">
+                        <h3 class="prato-nome">Brigadeiro</h3>
+                        <p class="prato-descricao">Tradicional doce brasileiro feito com chocolate.</p>
+                        <span class="prato-preco">R$ 5,00</span>
+                    </div>
+                </label>
             </div>
             <div class="card prato">
-                <img src="img/pudim.jpg" alt="Pudim" class="prato-imagem">
-                <div class="prato-detalhes">
-                    <h3 class="prato-nome">Pudim</h3>
-                    <p class="prato-descricao">Pudim de leite condensado com calda de caramelo.</p>
-                    <span class="prato-preco">R$ 8,00</span>
-                </div>
+                <input type="checkbox" id="pudim" name="pratos" value="Pudim - R$ 8,00">
+                <label for="pudim">
+                    <img src="img/pudim.jpg" alt="Pudim" class="prato-imagem">
+                    <div class="prato-detalhes">
+                        <h3 class="prato-nome">Pudim</h3>
+                        <p class="prato-descricao">Pudim de leite condensado com calda de caramelo.</p>
+                        <span class="prato-preco">R$ 8,00</span>
+                    </div>
+                </label>
             </div>
+        </section>
+        <section class="formulario-pedido">
+            <h2>Faça seu Pedido</h2>
+            <form id="pedido-form" action="https://wa.me/5598987654321" method="get" target="_blank">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Seu Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome" required>
+                </div>
+                <div class="mb-3">
+                    <label for="telefone" class="form-label">Seu Telefone</label>
+                    <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="(99) 99999-9999" required>
+                </div>
+                <div class="mb-3">
+                    <label for="pedido" class="form-label">Seu Pedido</label>
+                    <textarea class="form-control" id="pedido" name="pedido" rows="4" placeholder="Os pratos selecionados aparecerão aqui automaticamente." readonly></textarea>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Enviar Pedido</button>
+            </form>
         </section>
     </main>
     <footer class="rodape">

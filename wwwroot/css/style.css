@@ -406,3 +406,60 @@ body {
 .como-comprar ol li {
     margin-bottom: 10px;
 }
+
+.mapa {
+    margin-top: 20px;
+    text-align: center;
+}
+.mapa iframe {
+    border-radius: 8px;
+    width: 100%;
+    max-width: 800px;
+    height: 300px;
+    border: none;
+}
+
+.formulario-pedido {
+    margin-top: 40px;
+    padding: 20px;
+    background: #fffbe6;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.formulario-pedido h2 {
+    text-align: center;
+    color: #ff9800;
+    margin-bottom: 20px;
+}
+
+.formulario-pedido .form-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.formulario-pedido .form-control {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 1em;
+}
+
+.formulario-pedido .btn-success {
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.formulario-pedido .btn-success:hover {
+    background: #388e3c;
+}
