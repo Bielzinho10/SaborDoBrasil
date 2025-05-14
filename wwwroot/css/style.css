@@ -463,3 +463,20 @@ body {
 .formulario-pedido .btn-success:hover {
     background: #388e3c;
 }
+
+.carrossel-destaques {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 30px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.carrossel-img {
+    width: 100%;
+    display: none;
+    transition: opacity 0.5s;
+}
+.carrossel-img.ativo {
+    display: block;
+}
