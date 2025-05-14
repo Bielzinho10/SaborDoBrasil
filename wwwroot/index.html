@@ -2,14 +2,17 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sabor do Brasil</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <!-- Coluna 1 -->
         <div class="coluna coluna1">
-            <img src="logo.png" alt="Logo Sabor do Brasil" class="logo">
+            <img src="img/logo_sabor_do_brasil.png" alt="Logo Sabor do Brasil" class="logo">
+            <span class="nome-site">Sabor do Brasil</span>
             <div class="likes">
                 <button id="like-btn">👍</button>
                 <span id="like-count">0</span>
@@ -22,7 +25,49 @@
         <!-- Coluna 2 -->
         <div class="coluna coluna2">
             <div class="publicacao">
-                <img src="imagem1.jpg" alt="Imagem Publicada" class="imagem-publicada">
+                <img src="img/receitas-de-feijoada-baiana-4-730x449.webp" alt="Feijoada" class="imagem-publicada">
+                <div class="acoes">
+                    <button class="like-img-btn">👍</button>
+                    <span class="like-img-count">0</span>
+                    <button class="dislike-img-btn">👎</button>
+                    <span class="dislike-img-count">0</span>
+                </div>
+                <div class="comentarios">
+                    <input type="text" class="comentario-input" placeholder="Comente aqui...">
+                    <button class="comentar-btn">Comentar</button>
+                    <ul class="lista-comentarios"></ul>
+                </div>
+            </div>
+            <div class="publicacao">
+                <img src="img/moqueca-de-peixe-baiana-1200x800.jpg" alt="Moqueca Baiana" class="imagem-publicada">
+                <div class="acoes">
+                    <button class="like-img-btn">👍</button>
+                    <span class="like-img-count">0</span>
+                    <button class="dislike-img-btn">👎</button>
+                    <span class="dislike-img-count">0</span>
+                </div>
+                <div class="comentarios">
+                    <input type="text" class="comentario-input" placeholder="Comente aqui...">
+                    <button class="comentar-btn">Comentar</button>
+                    <ul class="lista-comentarios"></ul>
+                </div>
+            </div>
+            <div class="publicacao">
+                <img src="img/images.jpg" alt="Brigadeiro" class="imagem-publicada">
+                <div class="acoes">
+                    <button class="like-img-btn">👍</button>
+                    <span class="like-img-count">0</span>
+                    <button class="dislike-img-btn">👎</button>
+                    <span class="dislike-img-count">0</span>
+                </div>
+                <div class="comentarios">
+                    <input type="text" class="comentario-input" placeholder="Comente aqui...">
+                    <button class="comentar-btn">Comentar</button>
+                    <ul class="lista-comentarios"></ul>
+                </div>
+            </div>
+            <div class="publicacao">
+                <img src="img/acaraje-comida-tradicional-de-origem-africana-da-bahia-com-vatapa-caruru-e-camarao-seco.jpg" alt="Acarajé" class="imagem-publicada">
                 <div class="acoes">
                     <button class="like-img-btn">👍</button>
                     <span class="like-img-count">0</span>
@@ -39,9 +84,31 @@
         </div>
         <!-- Coluna 3 -->
         <div class="coluna coluna3">
-            <button id="login-btn">Login</button>
+            <form class="form-login">
+                <h2 class="titulo-login">Login</h2>
+                <input type="email" class="input-login" placeholder="E-mail" required>
+                <input type="password" class="input-login" placeholder="Senha" required>
+                <button type="submit" class="btn-login">Entrar</button>
+            </form>
         </div>
     </div>
+    <footer class="rodape">
+        <span>Sabor do Brasil &copy; 2025</span>
+        <div class="redes-sociais">
+            <a href="https://wa.me/5598987654321" target="_blank" title="WhatsApp">
+                <i class="fab fa-whatsapp icone-social"></i>
+                <span class="contato-texto">(98) 98765-4321</span>
+            </a>
+            <a href="https://instagram.com/sabordobrasiloficial" target="_blank" title="Instagram">
+                <i class="fab fa-instagram icone-social"></i>
+                <span class="contato-texto">@sabordobrasiloficial</span>
+            </a>
+            <a href="https://facebook.com/seu_facebook" target="_blank" title="Facebook">
+                <i class="fab fa-facebook icone-social"></i>
+                <span class="contato-texto">/seu_facebook</span>
+            </a>
+        </div>
+    </footer>
     <script src="js/javascript.js"></script>
 </body>
 </html>
