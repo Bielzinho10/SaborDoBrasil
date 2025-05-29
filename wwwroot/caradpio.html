@@ -1,100 +1,183 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardápio - Sabor do Brasil</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cardápio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+      color: #D97014;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .pratos-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .prato {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      width: 250px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .prato:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    .prato img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .prato h3 {
+      margin: 10px 0 5px;
+      font-size: 1.2rem;
+      color: #333;
+    }
+    .prato p {
+      color: #555;
+      font-size: 0.9rem;
+    }
+    .prato .preco {
+      color: #D97014;
+      font-size: 1.1rem;
+      margin: 10px 0;
+    }
+    .prato button {
+      background-color: #D97014;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+    .prato button:hover {
+      background-color: #bb5e11;
+    }
+    .carrinho {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #D97014;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+    .carrinho span {
+      margin-left: 10px;
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <img src="img/logo_sabor_do_brasil.png" alt="Logo Sabor do Brasil" class="logo">
-        <h1 class="nome-site">Cardápio - Sabor do Brasil</h1>
-    </header>
-    <main class="container cardapio-container">
-        <section class="categoria">
-            <h2 class="categoria-titulo">Pratos Principais</h2>
-            <div class="card prato">
-                <input type="checkbox" id="feijoada" name="pratos" value="Feijoada - R$ 35,00">
-                <label for="feijoada">
-                    <img src="img/receitas-de-feijoada-baiana-4-730x449.webp" alt="Feijoada" class="prato-imagem">
-                    <div class="prato-detalhes">
-                        <h3 class="prato-nome">Feijoada</h3>
-                        <p class="prato-descricao">Uma deliciosa feijoada brasileira com acompanhamentos.</p>
-                        <span class="prato-preco">R$ 35,00</span>
-                    </div>
-                </label>
-            </div>
-            <div class="card prato">
-                <input type="checkbox" id="moqueca" name="pratos" value="Moqueca Baiana - R$ 40,00">
-                <label for="moqueca">
-                    <img src="img/moqueca-de-peixe-baiana-1200x800.jpg" alt="Moqueca Baiana" class="prato-imagem">
-                    <div class="prato-detalhes">
-                        <h3 class="prato-nome">Moqueca Baiana</h3>
-                        <p class="prato-descricao">Moqueca de peixe com temperos típicos da Bahia.</p>
-                        <span class="prato-preco">R$ 40,00</span>
-                    </div>
-                </label>
-            </div>
-        </section>
-        <section class="categoria">
-            <h2 class="categoria-titulo">Sobremesas</h2>
-            <div class="card prato">
-                <input type="checkbox" id="brigadeiro" name="pratos" value="Brigadeiro - R$ 5,00">
-                <label for="brigadeiro">
-                    <img src="img/images.jpg" alt="Brigadeiro" class="prato-imagem">
-                    <div class="prato-detalhes">
-                        <h3 class="prato-nome">Brigadeiro</h3>
-                        <p class="prato-descricao">Tradicional doce brasileiro feito com chocolate.</p>
-                        <span class="prato-preco">R$ 5,00</span>
-                    </div>
-                </label>
-            </div>
-            <div class="card prato">
-                <input type="checkbox" id="pudim" name="pratos" value="Pudim - R$ 8,00">
-                <label for="pudim">
-                    <img src="img/pudim.jpg" alt="Pudim" class="prato-imagem">
-                    <div class="prato-detalhes">
-                        <h3 class="prato-nome">Pudim</h3>
-                        <p class="prato-descricao">Pudim de leite condensado com calda de caramelo.</p>
-                        <span class="prato-preco">R$ 8,00</span>
-                    </div>
-                </label>
-            </div>
-        </section>
-        <section class="formulario-pedido">
-            <h2>Faça seu Pedido</h2>
-            <form id="pedido-form" action="https://wa.me/5598987654321" method="get" target="_blank">
-                <div class="mb-3">
-                    <label for="nome" class="form-label">Seu Nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome" required>
-                </div>
-                <div class="mb-3">
-                    <label for="telefone" class="form-label">Seu Telefone</label>
-                    <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="(99) 99999-9999" required>
-                </div>
-                <div class="mb-3">
-                    <label for="pedido" class="form-label">Seu Pedido</label>
-                    <textarea class="form-control" id="pedido" name="pedido" rows="4" placeholder="Os pratos selecionados aparecerão aqui automaticamente." readonly></textarea>
-                </div>
-                <button type="submit" class="btn btn-success w-100">Enviar Pedido</button>
-            </form>
-        </section>
-    </main>
-    <footer class="rodape">
-        <span>Sabor do Brasil &copy; 2025</span>
-        <div class="redes-sociais">
-            <a href="https://wa.me/5598987654321" target="_blank" title="WhatsApp">
-                <i class="fab fa-whatsapp icone-social"></i>
-            </a>
-            <a href="https://instagram.com/sabordobrasiloficial" target="_blank" title="Instagram">
-                <i class="fab fa-instagram icone-social"></i>
-            </a>
-            <a href="https://facebook.com/seu_facebook" target="_blank" title="Facebook">
-                <i class="fab fa-facebook icone-social"></i>
-            </a>
-        </div>
-    </footer>
+  <h1>Cardápio de Pratos</h1>
+  <div id="app" class="pratos-container"></div>
+
+  <!-- Carrinho -->
+  <div class="carrinho" id="carrinho" onclick="window.location.href = 'resumo.html'">
+    <i class="fas fa-shopping-cart"></i>
+    <span id="carrinho-count">0</span> Itens
+  </div>
+
+  <script>
+    const pratos = [
+      {
+        nome: "Lasanha à Bolonhesa",
+        descricao: "Massa recheada com carne moída e molho de tomate.",
+        preco: "R$ 35,00",
+        imagem: "img/images3.jpg"
+      },
+      {
+        nome: "Salada Caesar",
+        descricao: "Alface, frango grelhado, croutons e molho especial.",
+        preco: "R$ 25,00",
+        imagem: "https://via.placeholder.com/250x150?text=Salada+Caesar"
+      },
+      {
+        nome: "Pizza Margherita",
+        descricao: "Molho de tomate, mussarela e manjericão.",
+        preco: "R$ 40,00",
+        imagem: "https://via.placeholder.com/250x150?text=Pizza"
+      },
+      {
+        nome: "Feijoada",
+        descricao: "Feijão preto, carne de porco, arroz e farofa.",
+        preco: "R$ 45,00",
+        imagem: "https://via.placeholder.com/250x150?text=Feijoada"
+      },
+      {
+        nome: "Moqueca Baiana",
+        descricao: "Peixe cozido com azeite de dendê e leite de coco.",
+        preco: "R$ 50,00",
+        imagem: "https://via.placeholder.com/250x150?text=Moqueca"
+      }
+    ];
+
+    const app = document.getElementById('app');
+    const carrinhoCount = document.getElementById('carrinho-count');
+    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    // Função para adicionar um item ao carrinho
+    function adicionarAoCarrinho(prato) {
+      carrinho.push(prato);
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+      carrinhoCount.textContent = carrinho.length;
+    }
+
+    // Função para permitir que o usuário faça o upload de uma imagem
+    function alterarImagem(event, pratoIndex) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          pratos[pratoIndex].imagem = e.target.result; // Atualiza a imagem no array
+          const pratoElement = document.getElementById(`prato-${pratoIndex}`);
+          pratoElement.querySelector('img').src = e.target.result; // Altera a imagem exibida
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Criar os pratos dinamicamente
+    pratos.forEach((prato, index) => {
+      const div = document.createElement('div');
+      div.className = 'prato';
+      div.id = `prato-${index}`; // Adiciona ID para cada prato
+      div.innerHTML = `
+        <img src="${prato.imagem}" alt="${prato.nome}" />
+        <h3>${prato.nome}</h3>
+        <p>${prato.descricao}</p>
+        <span class="preco">${prato.preco}</span>
+        <input type="file" accept="image/*" onchange="alterarImagem(event, ${index})" />
+        <button onclick='adicionarAoCarrinho(${JSON.stringify(prato)})'>Adicionar ao Carrinho</button>
+      `;
+      app.appendChild(div);
+    });
+
+    // Atualiza a contagem de itens do carrinho
+    carrinhoCount.textContent = carrinho.length;
+  </script>
+
+  <!-- Adicione o Font Awesome CDN para o ícone do carrinho -->
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </body>
 </html>
