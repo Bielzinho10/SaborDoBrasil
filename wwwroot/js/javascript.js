@@ -248,3 +248,53 @@ document.querySelectorAll('.comentarios').forEach(comentSection => {
     updatePostCounters(postId, postsData[postId].likes, postsData[postId].dislikes, postsData[postId].commentsCount);
   });
 });
+// Exemplo básico (adicione no seu `javascript.js`)
+document.querySelectorAll('.publicacao').forEach((pub, index) => {
+    const likeBtn = pub.querySelector('.like-img-btn');
+    const dislikeBtn = pub.querySelector('.dislike-img-btn');
+    const likeCount = pub.querySelector('.like-img-count');
+    const dislikeCount = pub.querySelector('.dislike-img-count');
+
+    const savedLikes = localStorage.getItem(`likes-${index}`) || 0;
+    const savedDislikes = localStorage.getItem(`dislikes-${index}`) || 0;
+    likeCount.textContent = savedLikes;
+    dislikeCount.textContent = savedDislikes;
+
+    likeBtn.addEventListener('click', () => {
+        let count = parseInt(likeCount.textContent);
+        likeCount.textContent = ++count;
+        localStorage.setItem(`likes-${index}`, count);
+    });
+
+    dislikeBtn.addEventListener('click', () => {
+        let count = parseInt(dislikeCount.textContent);
+        dislikeCount.textContent = ++count;
+        localStorage.setItem(`dislikes-${index}`, count);
+    });
+});
+// Comentários locais
+document.querySelectorAll('.publicacao').forEach((pub, index) => {
+    const input = pub.querySelector('.comentario-input');
+    const btn = pub.querySelector('.comentar-btn');
+    const lista = pub.querySelector('.lista-comentarios');
+
+    // Carrega comentários do localStorage
+    const savedComments = JSON.parse(localStorage.getItem(`comments-${index}`)) || [];
+    savedComments.forEach(c => {
+        const li = document.createElement('li');
+        li.textContent = c;
+        lista.appendChild(li);
+    });
+
+    btn.addEventListener('click', () => {
+        const text = input.value.trim();
+        if (text !== '') {
+            const li = document.createElement('li');
+            li.textContent = text;
+            lista.appendChild(li);
+            savedComments.push(text);
+            localStorage.setItem(`comments-${index}`, JSON.stringify(savedComments));
+            input.value = '';
+        }
+    });
+});

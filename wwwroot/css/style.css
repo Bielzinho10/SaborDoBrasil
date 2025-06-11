@@ -480,3 +480,10 @@ body {
 .carrossel-img.ativo {
     display: block;
 }
+.imagem-publicada {
+    transition: transform 0.3s ease;
+}
+
+.imagem-publicada:hover {
+    transform: scale(1.05);
+}
