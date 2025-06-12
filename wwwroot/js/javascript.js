@@ -1,300 +1,127 @@
-// Referências
-const btnLoginLogout = document.getElementById('btn-login-logout');
-const modalLogin = document.getElementById('modal-login');
-const formLogin = document.getElementById('form-login');
-const comentariosSections = document.querySelectorAll('.comentarios');
+window.onload = () => {
+  // Likes e dislikes globais do site
+  const likeBtnGlobal = document.getElementById('like-btn');
+  const dislikeBtnGlobal = document.getElementById('dislike-btn');
+  const likeCountGlobal = document.getElementById('like-count');
+  const dislikeCountGlobal = document.getElementById('dislike-count');
 
-let loggedIn = false;
-let currentUser = null;
+  // Carregar likes/dislikes globais do localStorage
+  let globalLikes = parseInt(localStorage.getItem('globalLikes')) || 0;
+  let globalDislikes = parseInt(localStorage.getItem('globalDislikes')) || 0;
 
-// Dados para likes/dislikes do usuário (perfil)
-let userLikesCount = 0;
-let userDislikesCount = 0;
+  likeCountGlobal.textContent = globalLikes;
+  dislikeCountGlobal.textContent = globalDislikes;
 
-// Total global no perfil (os spans com ids)
-const totalLikesSpan = document.getElementById('total-likes');
-const totalDislikesSpan = document.getElementById('total-dislikes');
+  likeBtnGlobal.addEventListener('click', () => {
+    globalLikes++;
+    likeCountGlobal.textContent = globalLikes;
+    localStorage.setItem('globalLikes', globalLikes);
+    animateBtn(likeBtnGlobal);
+  });
 
-// Abrir modal login
-btnLoginLogout.addEventListener('click', () => {
-  if (!loggedIn) {
-    openModal();
-  } else {
-    logout();
+  dislikeBtnGlobal.addEventListener('click', () => {
+    globalDislikes++;
+    dislikeCountGlobal.textContent = globalDislikes;
+    localStorage.setItem('globalDislikes', globalDislikes);
+    animateBtn(dislikeBtnGlobal);
+  });
+
+  // Função de animação rápida no botão
+  function animateBtn(btn) {
+    btn.style.transform = 'scale(1.2)';
+    setTimeout(() => btn.style.transform = 'scale(1)', 150);
   }
-});
 
-// Modal funções
-function openModal() {
-  modalLogin.classList.add('active');
-  modalLogin.setAttribute('aria-hidden', 'false');
-  document.getElementById('usuario').focus();
-}
-function closeModal() {
-  modalLogin.classList.remove('active');
-  modalLogin.setAttribute('aria-hidden', 'true');
-}
+  // Likes, dislikes e comentários para cada publicação
+  document.querySelectorAll('.publicacao').forEach((post, index) => {
+    const likeBtn = post.querySelector('.like-img-btn');
+    const dislikeBtn = post.querySelector('.dislike-img-btn');
+    const likeCount = post.querySelector('.like-img-count');
+    const dislikeCount = post.querySelector('.dislike-img-count');
+    const commentInput = post.querySelector('.comentario-input');
+    const commentBtn = post.querySelector('.comentar-btn');
+    const commentList = post.querySelector('.lista-comentarios');
 
-// Submissão login
-formLogin.addEventListener('submit', e => {
-  e.preventDefault();
-  const usuario = formLogin.usuario.value.trim();
-  const senha = formLogin.senha.value.trim();
+    // Carregar dados do localStorage
+    let savedLikes = parseInt(localStorage.getItem(`post${index}_likes`)) || 0;
+    let savedDislikes = parseInt(localStorage.getItem(`post${index}_dislikes`)) || 0;
+    let savedComments = JSON.parse(localStorage.getItem(`post${index}_comments`)) || [];
 
-  if (usuario && senha) {
-    loggedIn = true;
-    currentUser = usuario;
-    btnLoginLogout.textContent = 'Sair';
-    closeModal();
-    alert(`Bem-vindo(a), ${usuario}!`);
-    // Pode carregar perfil, likes, dislikes do usuário aqui
-    // Inicializar com valores padrão
-    userLikesCount = 0;
-    userDislikesCount = 0;
-    updatePerfil();
-  } else {
-    alert('Preencha todos os campos.');
-  }
-});
-
-// Fechar modal clicando fora do conteúdo
-modalLogin.addEventListener('click', e => {
-  if (e.target === modalLogin) {
-    closeModal();
-  }
-});
-
-// Logout
-function logout() {
-  loggedIn = false;
-  currentUser = null;
-  btnLoginLogout.textContent = 'Entrar';
-  userLikesCount = 0;
-  userDislikesCount = 0;
-  updatePerfil();
-  alert('Você saiu da conta.');
-  // Opcional: limpar campos de comentários etc
-}
-
-// Atualiza o perfil (totais likes/dislikes)
-function updatePerfil() {
-  totalLikesSpan.textContent = userLikesCount;
-  totalDislikesSpan.textContent = userDislikesCount;
-}
-
-// Função para atualizar contador do post no DOM
-function updatePostCounters(postId, likes, dislikes, comments) {
-  const btnLike = document.querySelector(`.btn-like[data-post-id="${postId}"] .contador-likes`);
-  const btnDislike = document.querySelector(`.btn-dislike[data-post-id="${postId}"] .contador-dislikes`);
-  const btnComments = document.querySelector(`.btn-chat[data-post-id="${postId}"] .contador-comentarios`);
-  if (btnLike) btnLike.textContent = likes;
-  if (btnDislike) btnDislike.textContent = dislikes;
-  if (btnComments) btnComments.textContent = comments;
-}
-
-// Estado de cada post: armazenar likes, dislikes, comentários e qual usuário curtiu ou não
-const postsData = {};
-
-// Inicialização dos posts do DOM
-document.querySelectorAll('.publicacao').forEach(postEl => {
-  const postId = postEl.querySelector('.btn-like').getAttribute('data-post-id');
-  
-  // Pegamos os valores iniciais do DOM
-  const likes = parseInt(postEl.querySelector('.contador-likes').textContent) || 0;
-  const dislikes = parseInt(postEl.querySelector('.contador-dislikes').textContent) || 0;
-  const commentsCount = postEl.querySelector('.lista-comentarios').children.length || 0;
-  
-  postsData[postId] = {
-    likes,
-    dislikes,
-    commentsCount,
-    likedByUser: false,
-    dislikedByUser: false,
-  };
-});
-
-// Botões de like
-document.querySelectorAll('.btn-like').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (!loggedIn) {
-      alert('Você precisa estar logado para curtir.');
-      openModal();
-      return;
-    }
-    
-    const postId = btn.getAttribute('data-post-id');
-    const post = postsData[postId];
-
-    if (post.likedByUser) {
-      // Tirar like
-      post.likes--;
-      post.likedByUser = false;
-      userLikesCount--;
-    } else {
-      // Colocar like
-      post.likes++;
-      post.likedByUser = true;
-      userLikesCount++;
-
-      // Se tinha disliked, tirar dislike
-      if (post.dislikedByUser) {
-        post.dislikes--;
-        post.dislikedByUser = false;
-        userDislikesCount--;
-      }
-    }
-
-    updatePostCounters(postId, post.likes, post.dislikes, post.commentsCount);
-    updatePerfil();
-  });
-});
-
-// Botões de dislike
-document.querySelectorAll('.btn-dislike').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (!loggedIn) {
-      alert('Você precisa estar logado para não gostar.');
-      openModal();
-      return;
-    }
-    
-    const postId = btn.getAttribute('data-post-id');
-    const post = postsData[postId];
-
-    if (post.dislikedByUser) {
-      // Tirar dislike
-      post.dislikes--;
-      post.dislikedByUser = false;
-      userDislikesCount--;
-    } else {
-      // Colocar dislike
-      post.dislikes++;
-      post.dislikedByUser = true;
-      userDislikesCount++;
-
-      // Se tinha liked, tirar like
-      if (post.likedByUser) {
-        post.likes--;
-        post.likedByUser = false;
-        userLikesCount--;
-      }
-    }
-
-    updatePostCounters(postId, post.likes, post.dislikes, post.commentsCount);
-    updatePerfil();
-  });
-});
-
-// Botões comentários (mostrar/ocultar)
-document.querySelectorAll('.btn-chat').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const postId = btn.getAttribute('data-post-id');
-    const postEl = btn.closest('.publicacao');
-    const comentariosSection = postEl.querySelector('.comentarios');
-
-    if (comentariosSection.hasAttribute('hidden')) {
-      comentariosSection.removeAttribute('hidden');
-      btn.setAttribute('aria-expanded', 'true');
-      comentariosSection.querySelector('textarea').focus();
-    } else {
-      comentariosSection.setAttribute('hidden', '');
-      btn.setAttribute('aria-expanded', 'false');
-    }
-  });
-});
-
-// Textareas e botões comentar
-document.querySelectorAll('.comentarios').forEach(comentSection => {
-  const textarea = comentSection.querySelector('textarea');
-  const btnComentar = comentSection.querySelector('.comentar-btn');
-  const postEl = comentSection.closest('.publicacao');
-  const postId = postEl.querySelector('.btn-like').getAttribute('data-post-id');
-  const ulComentarios = comentSection.querySelector('.lista-comentarios');
-
-  // Habilitar botão comentar quando textarea tem texto
-  textarea.addEventListener('input', () => {
-    if (textarea.value.trim().length > 0 && loggedIn) {
-      btnComentar.classList.add('enabled');
-      btnComentar.disabled = false;
-    } else {
-      btnComentar.classList.remove('enabled');
-      btnComentar.disabled = true;
-    }
-  });
-
-  // Clique no botão comentar
-  btnComentar.addEventListener('click', () => {
-    if (!loggedIn) {
-      alert('Você precisa estar logado para comentar.');
-      openModal();
-      return;
-    }
-
-    const texto = textarea.value.trim();
-    if (texto.length === 0) return;
-
-    // Criar novo comentário
-    const li = document.createElement('li');
-    li.innerHTML = `<strong>${currentUser}:</strong> <span>${texto}</span>`;
-    ulComentarios.appendChild(li);
-
-    // Limpar textarea e desabilitar botão
-    textarea.value = '';
-    btnComentar.classList.remove('enabled');
-    btnComentar.disabled = true;
-
-    // Atualizar contador de comentários
-    postsData[postId].commentsCount++;
-    updatePostCounters(postId, postsData[postId].likes, postsData[postId].dislikes, postsData[postId].commentsCount);
-  });
-});
-// Exemplo básico (adicione no seu `javascript.js`)
-document.querySelectorAll('.publicacao').forEach((pub, index) => {
-    const likeBtn = pub.querySelector('.like-img-btn');
-    const dislikeBtn = pub.querySelector('.dislike-img-btn');
-    const likeCount = pub.querySelector('.like-img-count');
-    const dislikeCount = pub.querySelector('.dislike-img-count');
-
-    const savedLikes = localStorage.getItem(`likes-${index}`) || 0;
-    const savedDislikes = localStorage.getItem(`dislikes-${index}`) || 0;
     likeCount.textContent = savedLikes;
     dislikeCount.textContent = savedDislikes;
 
+    savedComments.forEach(c => {
+      const li = document.createElement('li');
+      li.textContent = c;
+      commentList.appendChild(li);
+    });
+
     likeBtn.addEventListener('click', () => {
-        let count = parseInt(likeCount.textContent);
-        likeCount.textContent = ++count;
-        localStorage.setItem(`likes-${index}`, count);
+      savedLikes++;
+      likeCount.textContent = savedLikes;
+      localStorage.setItem(`post${index}_likes`, savedLikes);
+      animateBtn(likeBtn);
     });
 
     dislikeBtn.addEventListener('click', () => {
-        let count = parseInt(dislikeCount.textContent);
-        dislikeCount.textContent = ++count;
-        localStorage.setItem(`dislikes-${index}`, count);
-    });
-});
-// Comentários locais
-document.querySelectorAll('.publicacao').forEach((pub, index) => {
-    const input = pub.querySelector('.comentario-input');
-    const btn = pub.querySelector('.comentar-btn');
-    const lista = pub.querySelector('.lista-comentarios');
-
-    // Carrega comentários do localStorage
-    const savedComments = JSON.parse(localStorage.getItem(`comments-${index}`)) || [];
-    savedComments.forEach(c => {
-        const li = document.createElement('li');
-        li.textContent = c;
-        lista.appendChild(li);
+      savedDislikes++;
+      dislikeCount.textContent = savedDislikes;
+      localStorage.setItem(`post${index}_dislikes`, savedDislikes);
+      animateBtn(dislikeBtn);
     });
 
-    btn.addEventListener('click', () => {
-        const text = input.value.trim();
-        if (text !== '') {
-            const li = document.createElement('li');
-            li.textContent = text;
-            lista.appendChild(li);
-            savedComments.push(text);
-            localStorage.setItem(`comments-${index}`, JSON.stringify(savedComments));
-            input.value = '';
-        }
+    commentBtn.addEventListener('click', () => {
+      const comment = commentInput.value.trim();
+      if (comment === '') {
+        alert('Comentário vazio!');
+        return;
+      }
+      const li = document.createElement('li');
+      li.textContent = comment;
+      commentList.appendChild(li);
+
+      savedComments.push(comment);
+      localStorage.setItem(`post${index}_comments`, JSON.stringify(savedComments));
+
+      commentInput.value = '';
     });
-});
+  });
+
+  // Dark mode toggle
+  const toggleDarkModeBtn = document.getElementById('toggle-dark-mode');
+  const currentTheme = localStorage.getItem('theme') || 'light';
+
+  if (currentTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    toggleDarkModeBtn.textContent = '☀️ Modo Claro';
+  }
+
+  toggleDarkModeBtn.addEventListener('click', () => {
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      localStorage.setItem('theme', 'light');
+      toggleDarkModeBtn.textContent = '🌙 Modo Escuro';
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+      toggleDarkModeBtn.textContent = '☀️ Modo Claro';
+    }
+  });
+
+  // Fake login form (exemplo básico)
+  const loginForm = document.querySelector('.form-login');
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = loginForm.querySelector('input[type="email"]').value.trim();
+    const password = loginForm.querySelector('input[type="password"]').value.trim();
+
+    if (!email || !password) {
+      alert('Preencha todos os campos!');
+      return;
+    }
+
+    // Só pra demo
+    alert(`Login realizado com sucesso!\nEmail: ${email}`);
+    loginForm.reset();
+  });
+};

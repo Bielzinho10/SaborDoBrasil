@@ -2,82 +2,63 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Resumo da Compra</title>
+  <title>Resumo do Pedido</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
       padding: 20px;
-      background: #f4f4f4;
+      background-color: #f9f9f9;
     }
     h1 {
       text-align: center;
       color: #D97014;
-      font-size: 2rem;
     }
-    .resumo-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
+    .item {
+      margin: 10px 0;
     }
-    .item-carrinho {
-      display: flex;
-      justify-content: space-between;
-      width: 80%;
-      padding: 10px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    .item-carrinho h3 {
+    .total {
+      margin-top: 20px;
+      font-weight: bold;
       font-size: 1.2rem;
     }
-    .botao-finalizar {
+    .clear-btn {
       background-color: #D97014;
       color: white;
-      padding: 10px 20px;
+      padding: 10px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      font-size: 1.2rem;
       margin-top: 20px;
-    }
-    .botao-finalizar:hover {
-      background-color: #bb5e11;
     }
   </style>
 </head>
 <body>
-  <h1>Resumo da Compra</h1>
-  <div class="resumo-container" id="resumo-container"></div>
-  <button class="botao-finalizar" onclick="finalizarCompra()">Finalizar Compra</button>
+  <h1>Resumo do Pedido</h1>
+  <div id="resumo"></div>
+  <button class="clear-btn" onclick="limparCarrinho()">Esvaziar Carrinho</button>
 
   <script>
-    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    const resumoContainer = document.getElementById('resumo-container');
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    const resumo = document.getElementById('resumo');
+    let total = 0;
 
-    // Exibe os itens do carrinho
-    carrinho.forEach(item => {
+    carrinho.forEach(prato => {
+      const preco = parseFloat(prato.preco.replace('R$', '').replace(',', '.'));
+      total += preco;
       const div = document.createElement('div');
-      div.className = 'item-carrinho';
-      div.innerHTML = `
-        <h3>${item.nome}</h3>
-        <span>${item.preco}</span>
-      `;
-      resumoContainer.appendChild(div);
+      div.className = 'item';
+      div.innerHTML = `<strong>${prato.nome}</strong> - ${prato.preco}`;
+      resumo.appendChild(div);
     });
 
-    // Função para finalizar a compra
-    function finalizarCompra() {
-      if (carrinho.length === 0) {
-        alert("Seu carrinho está vazio!");
-        return;
-      }
+    const totalDiv = document.createElement('div');
+    totalDiv.className = 'total';
+    totalDiv.innerHTML = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+    resumo.appendChild(totalDiv);
+
+    function limparCarrinho() {
       localStorage.removeItem('carrinho');
-      alert("Compra finalizada com sucesso!");
-      window.location.href = 'index.html';  // Redireciona para a página inicial
+      location.reload();
     }
   </script>
 </body>

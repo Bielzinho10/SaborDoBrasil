@@ -47,5 +47,40 @@
             </div>
         </div>
     </div>
+    <script>
+  document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault(); // evita o envio padrão e recarregamento
+
+    // Pega os valores dos campos (opcional, se quiser usar)
+    const nome = document.getElementById('nome').value.trim();
+    const sobrenome = document.getElementById('sobrenome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const telefone = document.getElementById('telefone').value.trim();
+
+    // Aqui você pode fazer validações simples (opcional)
+
+    // Limpa os campos do formulário
+    this.reset();
+
+    // Cria uma mensagem de sucesso
+    let mensagemSucesso = document.createElement('div');
+    mensagemSucesso.className = 'alert alert-success mt-3';
+    mensagemSucesso.textContent = `Cadastro realizado com sucesso, ${nome}!`;
+
+    // Remove mensagens antigas antes de mostrar a nova
+    const container = this.parentElement;
+    const mensagensAntigas = container.querySelectorAll('.alert');
+    mensagensAntigas.forEach(msg => msg.remove());
+
+    // Insere a mensagem abaixo do formulário
+    container.appendChild(mensagemSucesso);
+
+    // Opcional: desaparecer mensagem após 5 segundos
+    setTimeout(() => {
+      mensagemSucesso.remove();
+    }, 5000);
+  });
+</script>
+
 </body>
 </html>

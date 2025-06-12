@@ -5,26 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cardápio</title>
   <style>
+    :root {
+      --bg: #f4f4f4;
+      --text: #333;
+      --primary: #D97014;
+      --hover: #bb5e11;
+      --card-bg: white;
+    }
+
+    body.dark {
+      --bg: #1c1c1c;
+      --text: #f4f4f4;
+      --card-bg: #2b2b2b;
+    }
+
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
-      background: #f4f4f4;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
     }
+
     h1 {
       text-align: center;
-      color: #D97014;
+      color: var(--primary);
       font-size: 2rem;
       margin-bottom: 20px;
     }
+
+    .filter-buttons {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .filter-buttons button {
+      margin: 5px;
+      padding: 10px 15px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .filter-buttons button:hover {
+      background-color: var(--hover);
+    }
+
+    .modo-escuro-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: var(--primary);
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
     .pratos-container {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
     }
+
     .prato {
-      background: white;
+      background: var(--card-bg);
       border-radius: 10px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       padding: 15px;
@@ -32,32 +81,38 @@
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
     .prato:hover {
       transform: translateY(-10px);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
+
     .prato img {
       width: 100%;
       height: 150px;
       object-fit: cover;
       border-radius: 8px;
     }
+
     .prato h3 {
       margin: 10px 0 5px;
       font-size: 1.2rem;
-      color: #333;
+      color: var(--text);
     }
+
     .prato p {
-      color: #555;
+      color: var(--text);
       font-size: 0.9rem;
     }
+
     .prato .preco {
-      color: #D97014;
+      color: var(--primary);
       font-size: 1.1rem;
       margin: 10px 0;
     }
+
     .prato button {
-      background-color: #D97014;
+      background-color: var(--primary);
       color: white;
       padding: 10px;
       border: none;
@@ -65,16 +120,21 @@
       cursor: pointer;
       font-size: 1rem;
       width: 100%;
-      transition: background-color 0.3s ease;
     }
+
     .prato button:hover {
-      background-color: #bb5e11;
+      background-color: var(--hover);
     }
+
+    .prato input[type="file"] {
+      margin-top: 10px;
+    }
+
     .carrinho {
       position: fixed;
       top: 20px;
       right: 20px;
-      background-color: #D97014;
+      background-color: var(--primary);
       color: white;
       padding: 15px;
       border-radius: 8px;
@@ -83,85 +143,57 @@
       display: flex;
       align-items: center;
     }
+
     .carrinho span {
       margin-left: 10px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      z-index: 1000;
     }
   </style>
 </head>
 <body>
+  <button class="modo-escuro-btn" onclick="toggleDarkMode()">🌙 Modo Escuro</button>
   <h1>Cardápio de Pratos</h1>
+
+  <div class="filter-buttons">
+    <button onclick="filtrarPorPreco(30)">Até R$ 30</button>
+    <button onclick="filtrarPorPreco(40)">Até R$ 40</button>
+    <button onclick="mostrarTodos()">Todos</button>
+  </div>
+
   <div id="app" class="pratos-container"></div>
 
-  <!-- Carrinho -->
   <div class="carrinho" id="carrinho" onclick="window.location.href = 'resumo.html'">
-    <i class="fas fa-shopping-cart"></i>
-    <span id="carrinho-count">0</span> Itens
+    🛒 <span id="carrinho-count">0</span> Itens
   </div>
 
   <script>
     const pratos = [
-      {
-        nome: "Lasanha à Bolonhesa",
-        descricao: "Massa recheada com carne moída e molho de tomate.",
-        preco: "R$ 35,00",
-        imagem: "img/images3.jpg"
-      },
-      {
-        nome: "Salada Caesar",
-        descricao: "Alface, frango grelhado, croutons e molho especial.",
-        preco: "R$ 25,00",
-        imagem: "https://via.placeholder.com/250x150?text=Salada+Caesar"
-      },
-      {
-        nome: "Pizza Margherita",
-        descricao: "Molho de tomate, mussarela e manjericão.",
-        preco: "R$ 40,00",
-        imagem: "https://via.placeholder.com/250x150?text=Pizza"
-      },
-      {
-        nome: "Feijoada",
-        descricao: "Feijão preto, carne de porco, arroz e farofa.",
-        preco: "R$ 45,00",
-        imagem: "https://via.placeholder.com/250x150?text=Feijoada"
-      },
-      {
-        nome: "Moqueca Baiana",
-        descricao: "Peixe cozido com azeite de dendê e leite de coco.",
-        preco: "R$ 50,00",
-        imagem: "https://via.placeholder.com/250x150?text=Moqueca"
-      }
+      { nome: "Lasanha à Bolonhesa", descricao: "Massa recheada com carne moída e molho de tomate.", preco: "R$ 35,00", imagem: "https://renata.com.br/receita/lasanha-a-bolonhesa" },
+      { nome: "Salada Caesar", descricao: "Alface, frango grelhado, croutons e molho especial.", preco: "R$ 25,00", imagem: "https://via.placeholder.com/250x150?text=Salada+Caesar" },
+      { nome: "Pizza Margherita", descricao: "Molho de tomate, mussarela e manjericão.", preco: "R$ 40,00", imagem: "https://via.placeholder.com/250x150?text=Pizza" },
+      { nome: "Feijoada", descricao: "Feijão preto, carne de porco, arroz e farofa.", preco: "R$ 45,00", imagem: "https://via.placeholder.com/250x150?text=Feijoada" },
+      { nome: "Moqueca Baiana", descricao: "Peixe cozido com azeite de dendê e leite de coco.", preco: "R$ 50,00", imagem: "https://via.placeholder.com/250x150?text=Moqueca" }
     ];
 
     const app = document.getElementById('app');
     const carrinhoCount = document.getElementById('carrinho-count');
     let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 
-    // Função para adicionar um item ao carrinho
-    function adicionarAoCarrinho(prato) {
-      carrinho.push(prato);
-      localStorage.setItem('carrinho', JSON.stringify(carrinho));
-      carrinhoCount.textContent = carrinho.length;
-    }
-
-    // Função para permitir que o usuário faça o upload de uma imagem
-    function alterarImagem(event, pratoIndex) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          pratos[pratoIndex].imagem = e.target.result; // Atualiza a imagem no array
-          const pratoElement = document.getElementById(`prato-${pratoIndex}`);
-          pratoElement.querySelector('img').src = e.target.result; // Altera a imagem exibida
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    // Criar os pratos dinamicamente
-    pratos.forEach((prato, index) => {
+    function criarPrato(prato, index) {
       const div = document.createElement('div');
       div.className = 'prato';
-      div.id = `prato-${index}`; // Adiciona ID para cada prato
+      div.id = `prato-${index}`;
       div.innerHTML = `
         <img src="${prato.imagem}" alt="${prato.nome}" />
         <h3>${prato.nome}</h3>
@@ -171,13 +203,55 @@
         <button onclick='adicionarAoCarrinho(${JSON.stringify(prato)})'>Adicionar ao Carrinho</button>
       `;
       app.appendChild(div);
-    });
+    }
 
-    // Atualiza a contagem de itens do carrinho
+    function mostrarTodos() {
+      app.innerHTML = '';
+      pratos.forEach((prato, index) => criarPrato(prato, index));
+    }
+
+    function filtrarPorPreco(maxPreco) {
+      app.innerHTML = '';
+      pratos.forEach((prato, index) => {
+        const preco = parseFloat(prato.preco.replace('R$', '').replace(',', '.'));
+        if (preco <= maxPreco) criarPrato(prato, index);
+      });
+    }
+
+    function alterarImagem(event, pratoIndex) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          pratos[pratoIndex].imagem = e.target.result;
+          const pratoElement = document.getElementById(`prato-${pratoIndex}`);
+          pratoElement.querySelector('img').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function adicionarAoCarrinho(prato) {
+      carrinho.push(prato);
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+      carrinhoCount.textContent = carrinho.length;
+      mostrarToast(`${prato.nome} adicionado ao carrinho!`);
+    }
+
+    function mostrarToast(msg) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = msg;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 2000);
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+    }
+
     carrinhoCount.textContent = carrinho.length;
+    mostrarTodos();
   </script>
-
-  <!-- Adicione o Font Awesome CDN para o ícone do carrinho -->
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </body>
 </html>
