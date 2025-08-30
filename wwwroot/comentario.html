@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seção de Comentários</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Seção de Comentários -->
+  <div class="comment-section">
+    <button id="show-comment-form" class="comment-icon">
+      <img src="anexos/chat.svg" alt="Comentário" />
+    </button>
+
+    <!-- Formulário de Comentário -->
+    <div id="comment-form" class="comment-form">
+      <p id="user-name">João Silva</p>
+      <textarea id="comment-text" placeholder="Digite seu comentário..."></textarea>
+      <button id="comment-btn" class="comment-btn" disabled>Comentar</button>
+    </div>
+
+    <!-- Lista de Comentários -->
+    <div id="comments-list">
+      <!-- Exemplo de um comentário -->
+      <div class="comment" data-comment-id="1">
+        <p class="comment-text">Este é um comentário de exemplo!</p>
+        <p class="comment-user">João Silva</p>
+        <div class="comment-actions">
+          <button class="edit-btn" onclick="editComment(1)">
+            <img src="anexos/lapis_editar.svg" alt="Editar" />
+          </button>
+          <button class="delete-btn" onclick="deleteComment(1)">
+            <img src="anexos/lixeira_deletar.svg" alt="Deletar" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Exclusão -->
+    <div id="delete-modal" class="modal">
+      <p>Tem certeza que deseja excluir este comentário?</p>
+      <button onclick="confirmDelete()">Sim</button>
+      <button onclick="cancelDelete()">Não</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

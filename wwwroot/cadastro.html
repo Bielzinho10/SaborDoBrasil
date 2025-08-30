@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro - Sabor do Brasil</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="cadastro-bg">
+    <header class="header">
+        <img src="img/logo_sabor_do_brasil.png" alt="Logo Sabor do Brasil" class="logo">
+        <h1 class="nome-site">Cadastro - Sabor do Brasil</h1>
+        <div class="menu-opcoes">
+            <a href="index.html" class="btn-menu">Início</a>
+            <a href="caradpio.html" class="btn-menu">Cardápio</a>
+        </div>
+    </header>
+    <div class="container cadastro-container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card cadastro-card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Cadastro</h2>
+                        <form>
+                            <div class="mb-3">
+                                <label for="nome" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="nome" placeholder="Digite seu nome">
+                            </div>
+                            <div class="mb-3">
+                                <label for="sobrenome" class="form-label">Sobrenome</label>
+                                <input type="text" class="form-control" id="sobrenome" placeholder="Digite seu sobrenome">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input type="email" class="form-control" id="email" placeholder="Digite seu e-mail">
+                            </div>
+                            <div class="mb-3">
+                                <label for="telefone" class="form-label">Telefone</label>
+                                <input type="tel" class="form-control" id="telefone" placeholder="(99) 99999-9999">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 cadastro-btn">Cadastrar</button>
+                            <p class="login-link text-center mt-3">Já tem uma conta? <a href="login.html">Faça login</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+  document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault(); // evita o envio padrão e recarregamento
+
+    // Pega os valores dos campos (opcional, se quiser usar)
+    const nome = document.getElementById('nome').value.trim();
+    const sobrenome = document.getElementById('sobrenome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const telefone = document.getElementById('telefone').value.trim();
+
+    // Aqui você pode fazer validações simples (opcional)
+
+    // Limpa os campos do formulário
+    this.reset();
+
+    // Cria uma mensagem de sucesso
+    let mensagemSucesso = document.createElement('div');
+    mensagemSucesso.className = 'alert alert-success mt-3';
+    mensagemSucesso.textContent = `Cadastro realizado com sucesso, ${nome}!`;
+
+    // Remove mensagens antigas antes de mostrar a nova
+    const container = this.parentElement;
+    const mensagensAntigas = container.querySelectorAll('.alert');
+    mensagensAntigas.forEach(msg => msg.remove());
+
+    // Insere a mensagem abaixo do formulário
+    container.appendChild(mensagemSucesso);
+
+    // Opcional: desaparecer mensagem após 5 segundos
+    setTimeout(() => {
+      mensagemSucesso.remove();
+    }, 5000);
+  });
+</script>
+
+</body>
+</html>

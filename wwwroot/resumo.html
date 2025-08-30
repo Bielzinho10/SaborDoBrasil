@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Resumo do Pedido</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      color: #D97014;
+    }
+    .item {
+      margin: 10px 0;
+    }
+    .total {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .clear-btn {
+      background-color: #D97014;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Resumo do Pedido</h1>
+  <div id="resumo"></div>
+  <button class="clear-btn" onclick="limparCarrinho()">Esvaziar Carrinho</button>
+
+  <script>
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    const resumo = document.getElementById('resumo');
+    let total = 0;
+
+    carrinho.forEach(prato => {
+      const preco = parseFloat(prato.preco.replace('R$', '').replace(',', '.'));
+      total += preco;
+      const div = document.createElement('div');
+      div.className = 'item';
+      div.innerHTML = `<strong>${prato.nome}</strong> - ${prato.preco}`;
+      resumo.appendChild(div);
+    });
+
+    const totalDiv = document.createElement('div');
+    totalDiv.className = 'total';
+    totalDiv.innerHTML = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+    resumo.appendChild(totalDiv);
+
+    function limparCarrinho() {
+      localStorage.removeItem('carrinho');
+      location.reload();
+    }
+  </script>
+</body>
+</html>
